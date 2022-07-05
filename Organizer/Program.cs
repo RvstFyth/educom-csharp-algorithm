@@ -7,11 +7,21 @@ namespace Organizer
     {
         public static void Main(string[] args)
         {
-            // Press <F5> to run this code, when "Hello World!" appears in a black box, remove the line below and write your code below.
-            Console.WriteLine("Hello World!");
-            ShowList("Example of ShowList", new List<int>() { -33, 3, 2, 2, 3, 34, 34, 32, 1, 3, 5, 3, -22, -99, 33, -22, 11, 3, 33, 12, -2, -21, 4, 34, 22, 15, 34,-22 });
+            ShowList("Example of ShowList", GenerateNumbers(10));
         }
 
+        private static List<int> GenerateNumbers(int max)
+        {
+            var result = new List<int>();
+            
+            var rd = new Random();
+            for (var i = 0; i <= max; i++)
+            {
+                result.Add(rd.Next(-99, 99));    
+            }
+
+            return result;
+        }
 
         /* Example of a static function */
 

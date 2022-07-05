@@ -14,9 +14,17 @@ namespace Organizer
         /// <returns>The sorted array</returns>
         public List<int> Sort(List<int> input)
         {
-            array = new List<int>(input);
+            array = input;
 
-            SortFunction(0, array.Count - 1);
+            var startEndIndex = array.Count - 1;
+
+            while (startEndIndex >= 0)
+            {
+                SortFunction(0, startEndIndex);
+
+                startEndIndex--;
+            }
+
             return array;
         }
 
@@ -27,7 +35,13 @@ namespace Organizer
         /// <param name="high">De index within this.array to stop with</param>
         private void SortFunction(int low, int high)
         {
-            throw new NotImplementedException();
+            for (var i = low; i < high; i++)
+            {
+                if (array[i] > array[i + 1])
+                {
+                    (array[i], array[i + 1]) = (array[i + 1], array[i]);
+                }
+            }
         }    
     }
 }

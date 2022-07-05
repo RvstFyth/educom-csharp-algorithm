@@ -7,7 +7,10 @@ namespace Organizer
     {
         public static void Main(string[] args)
         {
-            ShowList("Example of ShowList", GenerateNumbers(10));
+            var shiftHighest = new ShiftHighestSort();
+            var randomNumbers = GenerateNumbers(10);
+            ShowList("Unsorted", randomNumbers);
+            ShowList("Sorted", shiftHighest.Sort(randomNumbers));
         }
 
         private static List<int> GenerateNumbers(int max)
@@ -15,7 +18,7 @@ namespace Organizer
             var result = new List<int>();
             
             var rd = new Random();
-            for (var i = 0; i <= max; i++)
+            for (var i = 0; i < max; i++)
             {
                 result.Add(rd.Next(-99, 99));    
             }

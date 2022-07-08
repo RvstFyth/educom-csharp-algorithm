@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-
 namespace Organizer
 {
-	public class RotateSort
-	{
+    public class RotateSort
+    {
 
         private List<int> array = new List<int>();
 
@@ -28,10 +25,15 @@ namespace Organizer
         /// <param name="high">De index within this.array to stop with</param>
         private void SortFunction(int low, int high)
         {
-            throw new NotImplementedException();
+            if (low < high)
+            {
+                int pivot = Partitioning(low, high);
+                SortFunction(low, pivot - 1);
+                SortFunction(pivot + 1, high);
+            }
         }
 
-        /// 
+        /// <summary>
         /// Partition the array in a group 'low' digits (e.a. lower than a choosen pivot) and a group 'high' digits
         /// </summary>
         /// <param name="low">De index within this.array to start with</param>
@@ -39,7 +41,20 @@ namespace Organizer
         /// <returns>The index in the array of the first of the 'high' digits</returns>
         private int Partitioning(int low, int high)
         {
-            throw new NotImplementedException();
+            int pivot = array[high];
+            int p = low - 1;
+
+            for (int j = low; j < high; j++)
+            {
+                if (array[j] <= pivot)
+                {
+                    p += 1;
+                    (array[p], array[j]) = (array[j], array[p]);
+                }
+            }
+
+            (array[p + 1], array[high]) = (array[high], array[p + 1]);
+            return p + 1;
         }
     }
 }

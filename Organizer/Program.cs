@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Organizer
 {
@@ -7,10 +8,26 @@ namespace Organizer
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine("Enter a number:");
+            string num = Console.ReadLine();
+            var timer = new Stopwatch();
             var shiftHighest = new ShiftHighestSort();
-            var randomNumbers = GenerateNumbers(10);
+            var rotateSort = new RotateSort();
+            var randomNumbers = GenerateNumbers(Int32.Parse(num));
             ShowList("Unsorted", randomNumbers);
-            ShowList("Sorted", shiftHighest.Sort(randomNumbers));
+            
+            timer.Start();
+            ShowList("rotateSort: Sorted", rotateSort.Sort(randomNumbers));
+            timer.Stop();
+            TimeSpan fTime = timer.Elapsed;
+
+            timer.Start();
+            ShowList("shiftHighest: Sorted", shiftHighest.Sort(randomNumbers));
+            timer.Stop();
+            TimeSpan sTime = timer.Elapsed;
+            
+            Console.WriteLine("RotateSort: " + fTime.ToString(@"m\:ss\.fff"));
+            Console.WriteLine("ShiftHighestSort: " + sTime.ToString(@"m\:ss\.fff"));
         }
 
         private static List<int> GenerateNumbers(int max)
@@ -36,9 +53,9 @@ namespace Organizer
         public static void ShowList(string label, List<int> theList)
         {
             int count = theList.Count;
-            if (count > 100)
+            if (count > 200)
             {
-                count = 300; // Do not show more than 300 numbers
+                count = 200; // Do not show more than 300 numbers
             }
             Console.WriteLine();
             Console.Write(label);

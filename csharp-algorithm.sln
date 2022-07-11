@@ -12,6 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BornToMove", "BornToMove\BornToMove.csproj", "{940F0AC0-23CD-47E5-A7DC-B0290A769D91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BornToMove.Business", "BornToMove.Business\BornToMove.Business.csproj", "{47CEAF6A-BD44-46DA-8250-8003B5B467D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BornToMove.DAL", "BornToMove.DAL\BornToMove.DAL.csproj", "{C2B4B5D8-24DC-4BB6-8E8F-A08289108B8D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +30,14 @@ Global
 		{940F0AC0-23CD-47E5-A7DC-B0290A769D91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{940F0AC0-23CD-47E5-A7DC-B0290A769D91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{940F0AC0-23CD-47E5-A7DC-B0290A769D91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47CEAF6A-BD44-46DA-8250-8003B5B467D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47CEAF6A-BD44-46DA-8250-8003B5B467D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47CEAF6A-BD44-46DA-8250-8003B5B467D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47CEAF6A-BD44-46DA-8250-8003B5B467D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2B4B5D8-24DC-4BB6-8E8F-A08289108B8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2B4B5D8-24DC-4BB6-8E8F-A08289108B8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2B4B5D8-24DC-4BB6-8E8F-A08289108B8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2B4B5D8-24DC-4BB6-8E8F-A08289108B8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

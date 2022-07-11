@@ -1,3 +1,5 @@
+using BornToMove.DAL;
+
 namespace BornToMove;
 
 public class Move
@@ -13,4 +15,10 @@ public class Move
     
     public int SweatRate
     { get; set; }
+    
+    public ICollection<MoveRating> Ratings
+    {
+        get;
+        set;
+    }
 }

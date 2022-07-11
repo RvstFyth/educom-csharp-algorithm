@@ -19,7 +19,7 @@ public class BuMove
         return DbWrapper.GetAll();
     }
 
-    public static Move SaveMove(string name, string description, int sweatRate)
+    public static Move? SaveMove(string name, string description, int sweatRate)
     {
         if (String.IsNullOrEmpty(name)) return null;
 

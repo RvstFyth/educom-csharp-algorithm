@@ -14,7 +14,7 @@ namespace Organizer
         /// <returns>The sorted array</returns>
         public List<int> Sort(List<int> input)
         {
-            array = input;
+            array = new List<int>(input);
 
             var startEndIndex = array.Count - 1;
 

@@ -1,19 +1,13 @@
-﻿using System.Data.SqlClient;
-using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
+﻿using BornToMove.Business;
 
 namespace BornToMove
 {
     public class Program
     {
-        private static Db database;
-        
         public static void Main(string[] args)
         {
             Move? selectedMove = null;
-            
-            database = new Db("Server=localhost,1433;Database=BornToMove;User ID=SA;Password=yourStrong(Password");
-            
+
             while (selectedMove == null)
             {
                 selectedMove = AskForExercise();
@@ -60,18 +54,16 @@ namespace BornToMove
             }
 
             var selectedNum = Convert.ToInt32(selected);
-            
 
-            var moves = database.GetMoves(null);
-            var movesCount = moves.Count;
-            
             if (selectedNum == 0)
             {
-                var rd = new Random();
-                return moves[rd.Next(0, movesCount - 1)];
+                return BuMove.GetRandomMove();
             }
             if (selectedNum == 1)
             {
+                var moves = BuMove.GetAllMoves();
+                var movesCount = moves.Count;
+                
                 Console.WriteLine("Select a exercise and enter the number to get started! \nEnter (0) for creating a new exercise.");
                 for (var i = 0; i < movesCount; i++)
                 {
@@ -98,8 +90,8 @@ namespace BornToMove
             string? name = null;
             string? description = null;
             var sweatRate = 0;
-            
-            var moves = database.GetMoves(null);
+
+            var moves = BuMove.GetAllMoves();
             while (true)
             {
                 if (name == null)
@@ -127,7 +119,7 @@ namespace BornToMove
                     
                 Console.WriteLine("Enter a sweatRate: ");
                 sweatRate = Convert.ToInt32(Console.ReadLine());
-                database.Create(name, description, sweatRate);
+                BuMove.SaveMove(name, description, sweatRate);
                 Console.WriteLine("Record saved!");
                                 
                 break;

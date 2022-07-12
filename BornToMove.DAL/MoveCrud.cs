@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using BornToMove;
 using Microsoft.EntityFrameworkCore;
+using Organizer;
 
 namespace BornToMove.DAL;
 
@@ -23,13 +24,19 @@ public class MoveCrud
     public List<Move> GetAll()
     {
         var context = new MoveContext();
-        return context.Moves.Include("Ratings").ToList();
+        var movesList = context.Moves.Include("Ratings").ToList();
+
+        var sorter = new RotateSort<Move>();
+        movesList = sorter.Sort(movesList, new RatingConverter());
+        return movesList;
     }
 
     public bool Update(Move move)
     {
         var context = new MoveContext();
         var m = context.Moves.Find(move.Id);
+        if (m == null) return false;
+        
         context.Moves.Update(m);
         var affected = context.SaveChanges();
         return affected > 1;
@@ -39,8 +46,9 @@ public class MoveCrud
     {
         var context = new MoveContext();
         var m = context.Moves.Include("Ratings").FirstOrDefault(m => m == move);
+        if (m == null) return false;
+        
         m.Ratings.Add(rating);
-
         var affected = context.SaveChanges();
         return affected > 0;
     }
@@ -49,9 +57,10 @@ public class MoveCrud
     {
         var context = new MoveContext();
         var m = context.Moves.Find(id);
+        if (m == null) return false;
+        
         context.Moves.Remove(m);
         var affected = context.SaveChanges();
-
         return affected > 0;
     }
 }

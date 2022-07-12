@@ -77,11 +77,7 @@ namespace BornToMove
                 Console.WriteLine("Select a exercise and enter the number to get started! \nEnter (0) for creating a new exercise.");
                 for (var i = 0; i < movesCount; i++)
                 {
-                    var averageRating = 0;
-                    if (moves[i].Ratings.Count > 0)
-                    {
-                        averageRating = Convert.ToInt32(moves[i].Ratings.Average(rating => rating.Rating));    
-                    }
+                    var averageRating = moves[i].AverageRating;
                     
                     Console.WriteLine(moves[i].Id + " | " + moves[i].Name + " | " + moves[i].SweatRate);
                     Console.WriteLine("Average rating: " + averageRating + " of " + moves[i].Ratings.Count + " submissions");

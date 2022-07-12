@@ -19,6 +19,5 @@ public class Move
     public ICollection<MoveRating> Ratings
     {
         get;
-        set;
     }
 }

@@ -35,6 +35,11 @@ public class BuMove
         return move;
     }
 
+    public static bool AddRating(Move move, MoveRating rating)
+    {
+        return DbWrapper.AddRating(move, rating);
+    }
+    
     public static bool UpdateMove(Move move)
     {
         return DbWrapper.Update(move);

@@ -1,5 +1,6 @@
 ﻿using BornToMove.Business;
 using System.Linq;
+using BornToMove.DAL;
 
 namespace BornToMove
 {
@@ -20,10 +21,10 @@ namespace BornToMove
 
             Console.ReadLine();
             
-            AskForRating();
+            AskForRating(selectedMove);
         }
 
-        private static void AskForRating()
+        private static void AskForRating(Move move)
         {
             int rating = 1;
             int intensity = 1;
@@ -41,6 +42,14 @@ namespace BornToMove
             {
                 intensity = Convert.ToInt32(intensityAnswer);
             }
+
+            var moveRating = new MoveRating
+            {
+                Rating = rating,
+                Intensity = intensity
+            };
+
+            BuMove.AddRating(move, moveRating);
             
             Console.WriteLine("Rating processed! Overall: "+rating+", Intensity: "+intensity);
         }

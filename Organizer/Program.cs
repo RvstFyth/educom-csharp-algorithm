@@ -12,12 +12,12 @@ namespace Organizer
             string num = Console.ReadLine();
             var timer = new Stopwatch();
             var shiftHighest = new ShiftHighestSort();
-            var rotateSort = new RotateSort();
+            var rotateSort = new RotateSort<int>();
             var randomNumbers = GenerateNumbers(Int32.Parse(num));
             ShowList("Unsorted", randomNumbers);
             
             timer.Start();
-            ShowList("rotateSort: Sorted", rotateSort.Sort(randomNumbers));
+            ShowList("rotateSort: Sorted", rotateSort.Sort(randomNumbers, Comparer<int>.Default));
             timer.Stop();
             TimeSpan fTime = timer.Elapsed;
 
@@ -26,7 +26,7 @@ namespace Organizer
             timer.Stop();
             TimeSpan sTime = timer.Elapsed;
             
-            Console.WriteLine("RotateSort: " + fTime.ToString(@"m\:ss\.fff"));
+            // Console.WriteLine("RotateSort: " + fTime.ToString(@"m\:ss\.fff"));
             Console.WriteLine("ShiftHighestSort: " + sTime.ToString(@"m\:ss\.fff"));
         }
 

@@ -1,4 +1,6 @@
 ﻿using BornToMove.Business;
+using System.Linq;
+using BornToMove.DAL;
 
 namespace BornToMove
 {
@@ -19,10 +21,10 @@ namespace BornToMove
 
             Console.ReadLine();
             
-            AskForRating();
+            AskForRating(selectedMove);
         }
 
-        private static void AskForRating()
+        private static void AskForRating(Move move)
         {
             int rating = 1;
             int intensity = 1;
@@ -40,6 +42,14 @@ namespace BornToMove
             {
                 intensity = Convert.ToInt32(intensityAnswer);
             }
+
+            var moveRating = new MoveRating
+            {
+                Rating = rating,
+                Intensity = intensity
+            };
+
+            BuMove.AddRating(move, moveRating);
             
             Console.WriteLine("Rating processed! Overall: "+rating+", Intensity: "+intensity);
         }
@@ -67,7 +77,14 @@ namespace BornToMove
                 Console.WriteLine("Select a exercise and enter the number to get started! \nEnter (0) for creating a new exercise.");
                 for (var i = 0; i < movesCount; i++)
                 {
+                    var averageRating = 0;
+                    if (moves[i].Ratings.Count > 0)
+                    {
+                        averageRating = Convert.ToInt32(moves[i].Ratings.Average(rating => rating.Rating));    
+                    }
+                    
                     Console.WriteLine(moves[i].Id + " | " + moves[i].Name + " | " + moves[i].SweatRate);
+                    Console.WriteLine("Average rating: " + averageRating + " of " + moves[i].Ratings.Count + " submissions");
                 }
 
                 var answer = Convert.ToInt32(Console.ReadLine());

@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using BornToMove;
+using Microsoft.EntityFrameworkCore;
+
 namespace BornToMove.DAL;
 
 public class MoveCrud
@@ -21,7 +23,7 @@ public class MoveCrud
     public List<Move> GetAll()
     {
         var context = new MoveContext();
-        return context.Moves.ToList();
+        return context.Moves.Include("Ratings").ToList();
     }
 
     public bool Update(Move move)
@@ -33,6 +35,16 @@ public class MoveCrud
         return affected > 1;
     }
 
+    public bool AddRating(Move move, MoveRating rating)
+    {
+        var context = new MoveContext();
+        var m = context.Moves.Include("Ratings").FirstOrDefault(m => m == move);
+        m.Ratings.Add(rating);
+
+        var affected = context.SaveChanges();
+        return affected > 0;
+    }
+    
     public bool Delete(int id)
     {
         var context = new MoveContext();

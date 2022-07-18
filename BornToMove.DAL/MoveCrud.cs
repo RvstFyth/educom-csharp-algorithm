@@ -7,11 +7,11 @@ namespace BornToMove.DAL;
 
 public class MoveCrud
 {
-    public int Create(Move move)
+    public async Task<int> Create(Move move)
     {
         var context = new MoveContext();
         var m = context.Moves.Add(move);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
         return m.Entity.Id;
     }
 
@@ -21,10 +21,10 @@ public class MoveCrud
         return context.Moves.Find(id);
     }
 
-    public List<Move> GetAll()
+    public async Task<List<Move>> GetAll()
     {
         var context = new MoveContext();
-        var movesList = context.Moves.Include("Ratings").ToList();
+        var movesList = await context.Moves.Include("Ratings").ToListAsync();
 
         var sorter = new RotateSort<Move>();
         movesList = sorter.Sort(movesList, new RatingConverter());
@@ -42,14 +42,22 @@ public class MoveCrud
         return affected > 1;
     }
 
-    public bool AddRating(Move move, MoveRating rating)
+    public async Task<bool> AddRating(Move move, MoveRating rating)
     {
         var context = new MoveContext();
-        var m = context.Moves.Include("Ratings").FirstOrDefault(m => m == move);
-        if (m == null) return false;
-        
+        var moves = await GetAll();
+        var m = moves.FirstOrDefault(m => m.Id == move.Id);
+
+        if (m == null)
+        {
+            Console.WriteLine("No");
+            return false;
+        }
+
         m.Ratings.Add(rating);
-        var affected = context.SaveChanges();
+        
+        int affected = await context.SaveChangesAsync();
+        Console.WriteLine("Aff: " + affected);
         return affected > 0;
     }
     

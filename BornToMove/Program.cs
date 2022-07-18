@@ -12,7 +12,7 @@ namespace BornToMove
 
             while (selectedMove == null)
             {
-                selectedMove = AskForExercise();
+                selectedMove = AskForExercise().GetAwaiter().GetResult();
             }
 
             Console.WriteLine("You selected: " + selectedMove.Name);
@@ -21,10 +21,12 @@ namespace BornToMove
 
             Console.ReadLine();
             
-            AskForRating(selectedMove);
+            bool result = AskForRating(selectedMove).GetAwaiter().GetResult();
+
+            Console.WriteLine(result ? "Rating processed!" : "Failed to save rating..");
         }
 
-        private static void AskForRating(Move move)
+        private static async Task<bool> AskForRating(Move move)
         {
             int rating = 1;
             int intensity = 1;
@@ -37,7 +39,8 @@ namespace BornToMove
             }
 
             Console.WriteLine("How intensive was this exercise from 1 to 5?");
-            var intensityAnswer = Console.ReadLine();
+            
+            string? intensityAnswer = Console.ReadLine();
             if (intensityAnswer != null && intensityAnswer.All(char.IsDigit))
             {
                 intensity = Convert.ToInt32(intensityAnswer);
@@ -49,29 +52,27 @@ namespace BornToMove
                 Intensity = intensity
             };
 
-            BuMove.AddRating(move, moveRating);
-            
-            Console.WriteLine("Rating processed! Overall: "+rating+", Intensity: "+intensity);
+            return await BuMove.AddRating(move, moveRating);
         }
 
-        private static Move? AskForExercise()
+        private static async Task<Move?> AskForExercise()
         {
             Console.WriteLine("Enter (0) for a random exercise or (1) to select a entry from the list");
-            var selected = Console.ReadLine();
-            if (selected == null || !selected.All(char.IsDigit))
+            string? selected = Console.ReadLine();
+            if (string.IsNullOrEmpty(selected) || !selected.All(char.IsDigit))
             {
                 return null;
             }
 
-            var selectedNum = Convert.ToInt32(selected);
+            int selectedNum = Convert.ToInt32(selected);
 
             if (selectedNum == 0)
             {
-                return BuMove.GetRandomMove();
+                return await BuMove.GetRandomMove();
             }
             if (selectedNum == 1)
             {
-                var moves = BuMove.GetAllMoves();
+                var moves = await BuMove.GetAllMoves();
                 var movesCount = moves.Count;
                 
                 Console.WriteLine("Select a exercise and enter the number to get started! \nEnter (0) for creating a new exercise.");
@@ -91,20 +92,20 @@ namespace BornToMove
                 }
                 if (answer == 0)
                 {
-                    CreateNewExercise();
+                    await CreateNewExercise();
                 }
             }
 
             return null;
         }
 
-        private static void CreateNewExercise()
+        private static async Task<bool> CreateNewExercise()
         {
             string? name = null;
             string? description = null;
             var sweatRate = 0;
 
-            var moves = BuMove.GetAllMoves();
+            var moves = await BuMove.GetAllMoves();
             while (true)
             {
                 if (name == null)
@@ -132,10 +133,9 @@ namespace BornToMove
                     
                 Console.WriteLine("Enter a sweatRate: ");
                 sweatRate = Convert.ToInt32(Console.ReadLine());
-                BuMove.SaveMove(name, description, sweatRate);
+                await BuMove.SaveMove(name, description, sweatRate);
                 Console.WriteLine("Record saved!");
-                                
-                break;
+                return true;
             }
         }
     }

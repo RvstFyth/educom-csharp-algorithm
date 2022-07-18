@@ -7,7 +7,7 @@ namespace BornToMove.DAL;
 
 public class MoveCrud
 {
-    public async Task<int> Create(Move move)
+    public async Task<int> CreateAsync(Move move)
     {
         var context = new MoveContext();
         var m = context.Moves.Add(move);
@@ -42,7 +42,7 @@ public class MoveCrud
         return affected > 1;
     }
 
-    public async Task<bool> AddRating(Move move, MoveRating rating)
+    public async Task<bool> AddRatingAsync(Move move, MoveRating rating)
     {
         var context = new MoveContext();
         // var moves = await GetAllAsync();

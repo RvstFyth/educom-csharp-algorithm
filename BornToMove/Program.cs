@@ -52,7 +52,7 @@ namespace BornToMove
                 Intensity = intensity
             };
 
-            return await BuMove.AddRating(move, moveRating);
+            return await BuMove.AddRatingAsync(move, moveRating);
         }
 
         private static async Task<Move?> AskForExercise()
@@ -68,11 +68,11 @@ namespace BornToMove
 
             if (selectedNum == 0)
             {
-                return await BuMove.GetRandomMove();
+                return await BuMove.GetRandomMoveAsync();
             }
             if (selectedNum == 1)
             {
-                var moves = await BuMove.GetAllMoves();
+                var moves = await BuMove.GetAllMovesAsync();
                 var movesCount = moves.Count;
                 
                 Console.WriteLine("Select a exercise and enter the number to get started! \nEnter (0) for creating a new exercise.");
@@ -105,7 +105,7 @@ namespace BornToMove
             string? description = null;
             var sweatRate = 0;
 
-            var moves = await BuMove.GetAllMoves();
+            var moves = await BuMove.GetAllMovesAsync();
             while (true)
             {
                 if (name == null)
@@ -133,7 +133,7 @@ namespace BornToMove
                     
                 Console.WriteLine("Enter a sweatRate: ");
                 sweatRate = Convert.ToInt32(Console.ReadLine());
-                await BuMove.SaveMove(name, description, sweatRate);
+                await BuMove.SaveMoveAsync(name, description, sweatRate);
                 Console.WriteLine("Record saved!");
                 return true;
             }

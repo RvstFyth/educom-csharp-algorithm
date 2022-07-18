@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using BornToMove;
 using Microsoft.EntityFrameworkCore;
 using Organizer;
+using BornToMove.DAL.Extentions;
 
 namespace BornToMove.DAL;
 
@@ -46,7 +47,10 @@ public class MoveCrud
     {
         var context = new MoveContext();
         // var moves = await GetAllAsync();
-        var m = await context.Moves.Include("Ratings").FirstAsync(m => m.Id == move.Id);
+//        var m = await context.Moves.Include("Ratings").FirstAsync(m => m.Id == move.Id);
+//        var m_org = await context.Moves.FindAsync(move.Id); // .FirstAsync(m => m.Id == move.Id);        
+        var m = await context.Moves.Include("Ratings").FindAsync(move.Id);
+//        var r = await context.MoveRatings.Include(m => m.Move).FindAsync(move.Id);
         m?.Ratings.Add(rating);
         int affected = await context.SaveChangesAsync();
         Console.WriteLine("Aff: " + affected);

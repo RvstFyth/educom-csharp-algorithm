@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace BornToMove.DAL;
 
@@ -10,7 +11,9 @@ public class MoveContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
     {
+        //        builder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=bornTomove_randy;Trusted_Connection=True");
         builder.UseSqlServer("Server=localhost,1433;Database=BornToMove;User ID=SA;Password=yourStrong(Password;TrustServerCertificate=true");
+        builder.LogTo(Console.WriteLine, LogLevel.Information);
         base.OnConfiguring(builder);
     }
 

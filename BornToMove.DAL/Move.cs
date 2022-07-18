@@ -2,11 +2,8 @@ using BornToMove.DAL;
 
 namespace BornToMove;
 
-public class Move
+public class Move : Base
 {
-    public int Id
-    { get; set; }
-
     public string Name
     {
         get;

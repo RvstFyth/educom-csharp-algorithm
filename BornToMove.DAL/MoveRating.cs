@@ -1,10 +1,7 @@
 namespace BornToMove.DAL;
 
-public class MoveRating
-{
-    public int Id
-    { get; set; }
-    
+public class MoveRating : Base
+{    
     public Move? Move
     {
         get;

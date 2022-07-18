@@ -2,20 +2,17 @@ using System.Collections.Generic;
 
 namespace Organizer
 {
-    public class RotateSort
+    public class RotateSort<T>
     {
 
-        private List<int> array = new List<int>();
+        private List<T> array = new List<T>();
 
-        /// <summary>
-        /// Sort an array using the functions below
-        /// </summary>
-        /// <param name="input">The unsorted array</param>
-        /// <returns>The sorted array</returns>
-        public List<int> Sort(List<int> input)
+        private IComparer<T> Comparer;
+
+        public List<T> Sort(List<T> input, IComparer<T> comparer)
         {
-            array = new List<int>(input);
-
+            array = new List<T>(input);
+            Comparer = comparer;
             SortFunction(0, array.Count - 1);
             return array;
         }
@@ -43,12 +40,12 @@ namespace Organizer
         /// <returns>The index in the array of the first of the 'high' digits</returns>
         private int Partitioning(int low, int high)
         {
-            int pivot = array[high];
+            var pivot = array[high];
             int p = low - 1;
 
             for (int j = low; j < high; j++)
             {
-                if (array[j] <= pivot)
+                if (Comparer.Compare(array[j], pivot) < 1)
                 {
                     p += 1;
                     (array[p], array[j]) = (array[j], array[p]);

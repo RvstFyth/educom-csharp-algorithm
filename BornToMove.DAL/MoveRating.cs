@@ -5,7 +5,7 @@ public class MoveRating
     public int Id
     { get; set; }
     
-    public Move Move
+    public Move? Move
     {
         get;
         set; 

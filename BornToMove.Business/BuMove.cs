@@ -37,6 +37,12 @@ public class BuMove
 
     public static bool AddRating(Move move, MoveRating rating)
     {
+        if (rating.Rating < 1) rating.Rating = 1;
+        else if (rating.Rating > 5) rating.Rating = 5;
+
+        if (rating.Intensity < 1) rating.Intensity = 1;
+        else if (rating.Intensity > 5) rating.Intensity = 5;
+        
         return DbWrapper.AddRating(move, rating);
     }
     

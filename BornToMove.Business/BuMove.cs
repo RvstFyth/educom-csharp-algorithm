@@ -9,14 +9,22 @@ public class BuMove
     
     public static Move GetRandomMove()
     {
+<<<<<<< Updated upstream
         var moves = DbWrapper.GetAll();
+=======
+        var moves = await DbWrapper.GetAllAsync();
+>>>>>>> Stashed changes
         var rd = new Random();
         return moves[rd.Next(0, moves.Count - 1)];
     }
 
     public static List<Move> GetAllMoves()
     {
+<<<<<<< Updated upstream
         return DbWrapper.GetAll();
+=======
+        return await DbWrapper.GetAllAsync();
+>>>>>>> Stashed changes
     }
 
     public static Move? SaveMove(string name, string description, int sweatRate)

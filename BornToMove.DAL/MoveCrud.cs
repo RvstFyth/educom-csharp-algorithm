@@ -21,7 +21,11 @@ public class MoveCrud
         return context.Moves.Find(id);
     }
 
+<<<<<<< Updated upstream
     public List<Move> GetAll()
+=======
+    public async Task<List<Move>> GetAllAsync()
+>>>>>>> Stashed changes
     {
         var context = new MoveContext();
         var movesList = context.Moves.Include("Ratings").ToList();
@@ -45,11 +49,19 @@ public class MoveCrud
     public bool AddRating(Move move, MoveRating rating)
     {
         var context = new MoveContext();
+<<<<<<< Updated upstream
         var m = context.Moves.Include("Ratings").FirstOrDefault(m => m == move);
         if (m == null) return false;
         
         m.Ratings.Add(rating);
         var affected = context.SaveChanges();
+=======
+        // var moves = await GetAllAsync();
+        var m = await context.Moves.Include("Ratings").FirstAsync(m => m.Id == move.Id);
+        m?.Ratings.Add(rating);
+        int affected = await context.SaveChangesAsync();
+        Console.WriteLine("Aff: " + affected);
+>>>>>>> Stashed changes
         return affected > 0;
     }
     
